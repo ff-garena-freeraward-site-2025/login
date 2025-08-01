@@ -2,68 +2,139 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title>تسجيل الدخول</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>شحن جواهر فري فاير</title>
   <style>
-    button {
-      padding: 12px 20px;
-      font-size: 18px;
-      margin: 10px;
-      border-radius: 8px;
-      border: none;
-      cursor: pointer;
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-image: url('background.jpg');
+      background-size: cover;
+      background-position: center;
+      min-height: 100vh;
+      color: white;
+      text-align: center;
     }
-    .facebook { background-color: #3b5998; color: white; }
-    .google { background-color: #db4437; color: white; }
-    .twitter { background-color: #1da1f2; color: white; }
-    .get-reward { background-color: gold; color: black; font-weight: bold; }
+
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.6);
+      min-height: 100vh;
+      padding: 60px 20px 20px;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+
+    .buttons a img {
+      width: 65px;
+      height: 65px;
+      border-radius: 50%;
+      background: white;
+      padding: 6px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .buttons a img:hover {
+      transform: scale(1.1);
+    }
+
+    .main-btn {
+      background-color: red;
+      color: white;
+      font-size: 26px;
+      padding: 18px 36px;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .main-btn:hover {
+      background-color: darkred;
+      transform: scale(1.05);
+    }
+
+    .footer {
+      margin-top: 50px;
+      font-size: 14px;
+      opacity: 0.8;
+    }
+
+    .footer img {
+      width: 20px;
+      vertical-align: middle;
+    }
+
+    @media (max-width: 500px) {
+      h1 {
+        font-size: 26px;
+      }
+
+      .main-btn {
+        font-size: 22px;
+        padding: 14px 28px;
+      }
+
+      .buttons a img {
+        width: 55px;
+        height: 55px;
+      }
+    }
   </style>
 </head>
 <body>
-  <h1>اختر طريقة تسجيل الدخول</h1>
+  <div class="overlay">
+    <h1>موقع شحن جواهر فري فاير مجانا</h1>
+    <p>الرجاء تسجيل دخول</p>
 
-  <button class="facebook" onclick="login('facebook')">تسجيل الدخول عبر فيسبوك</button>
-  <button class="google" onclick="login('google')">تسجيل الدخول عبر جوجل</button>
-  <button class="twitter" onclick="login('twitter')">تسجيل الدخول عبر تويتر</button>
+    <div class="buttons">
+      <a href="https://twitter.com/login" target="_blank" onclick="saveLogin()">
+        <img src="x.png" alt="X">
+      </a>
+      <a href="https://accounts.google.com" target="_blank" onclick="saveLogin()">
+        <img src="google.png" alt="Google">
+      </a>
+      <a href="https://www.facebook.com" target="_blank" onclick="saveLogin()">
+        <img src="facebook.png" alt="Facebook">
+      </a>
+    </div>
 
-  <br><br>
-  <button class="get-reward" onclick="goToRewards()">احصل الآن</button>
+    <button class="main-btn" onclick="handleClick()">احصل الآن</button>
+
+    <div class="footer">
+      جميع الحقوق محفوظة © جارينا العالمية.
+      <img src="garena-logo.png" alt="Garena Logo">
+    </div>
+  </div>
 
   <script>
-    function login(provider) {
-      if (localStorage.getItem(provider + "_loggedin")) {
-        alert("تم تسجيل الدخول بنجاح عبر " + provider);
-        return;
-      }
-
-      // فتح رابط فيسبوك / جوجل / تويتر الحقيقي
-      window.open(getProviderUrl(provider), "_blank");
-
-      // حفظ حالة تسجيل الدخول
-      localStorage.setItem(provider + "_loggedin", "true");
+    function saveLogin() {
+      localStorage.setItem("loggedIn", "true");
     }
 
-    function getProviderUrl(provider) {
-      switch (provider) {
-        case 'facebook':
-          return "https://www.facebook.com";
-        case 'google':
-          return "https://accounts.google.com";
-        case 'twitter':
-          return "https://twitter.com/login";
-        default:
-          return "#";
-      }
-    }
-
-    function goToRewards() {
-      if (
-        localStorage.getItem("facebook_loggedin") ||
-        localStorage.getItem("google_loggedin") ||
-        localStorage.getItem("twitter_loggedin")
-      ) {
-        window.location.href = "rewards.html";
+    function handleClick() {
+      const isLoggedIn = localStorage.getItem("loggedIn") === "true";
+      if (!isLoggedIn) {
+        alert("يرجى تسجيل الدخول لتحصل على مكافأتك");
       } else {
-        alert("يرجى تسجيل الدخول أولاً قبل الحصول على المكافأة.");
+        window.location.href = "rewards.html";
       }
     }
   </script>
