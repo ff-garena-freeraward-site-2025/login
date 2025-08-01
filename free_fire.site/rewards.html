@@ -39,16 +39,16 @@
     }
 
     .rewards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 15px;
-      justify-items: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
       margin-bottom: 30px;
     }
 
     .reward-item {
-      width: 100%;
-      max-width: 160px;
+      width: 90%;
+      max-width: 320px;
       border-radius: 15px;
       overflow: hidden;
       border: 3px solid transparent;
@@ -58,20 +58,20 @@
 
     .reward-item img {
       width: 100%;
-      height: 300px;
+      height: 230px;
       object-fit: cover;
       display: block;
     }
 
     .reward-item:hover {
-      transform: scale(1.03);
+      transform: scale(1.02);
       border-color: gold;
-      box-shadow: 0 0 10px gold;
+      box-shadow: 0 0 15px gold;
     }
 
     .reward-item.selected {
       border-color: lime;
-      box-shadow: 0 0 10px lime;
+      box-shadow: 0 0 15px lime;
     }
 
     .confirm-btn {
@@ -87,7 +87,7 @@
 
     .confirm-btn:hover {
       background-color: orange;
-      box-shadow: 0 0 10px orange;
+      box-shadow: 0 0 15px orange;
     }
 
     @media (max-width: 400px) {
@@ -97,10 +97,6 @@
 
       .confirm-btn {
         width: 90%;
-      }
-
-      .reward-item img {
-        height: 100px;
       }
     }
   </style>
