@@ -2,79 +2,151 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title>المكافآت</title>
+  <title>اختر مكافأتك</title>
   <style>
     body {
       margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      background: url('bg.jpg') no-repeat center center fixed;
+      font-family: 'Arial', sans-serif;
+      background-image: url('bg.jpg');
       background-size: cover;
-      text-align: center;
+      background-position: center;
       color: white;
-    }
-
-    .container {
-      background-color: rgba(0, 0, 0, 0.6);
-      padding: 20px;
+      text-align: center;
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
-    h2 {
-      margin-top: 20px;
-      margin-bottom: 10px;
-      font-size: 22px;
+    .overlay {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 30px 10px;
+      flex: 1;
     }
 
-    input {
-      padding: 10px;
-      font-size: 16px;
-      border-radius: 8px;
+    h1 {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+      padding: 12px;
+      font-size: 18px;
+      width: 90%;
+      max-width: 320px;
+      border-radius: 10px;
       border: none;
+      margin-bottom: 25px;
+    }
+
+    .rewards {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 25px;
+      margin-bottom: 30px;
+    }
+
+    .reward-item {
       width: 80%;
       max-width: 300px;
-      margin-bottom: 20px;
-      text-align: center;
+      border-radius: 15px;
+      overflow: hidden;
+      border: 3px solid transparent;
+      transition: 0.3s;
+      cursor: pointer;
     }
 
-    .reward-img {
-      width: 80%;
-      max-width: 400px;
+    .reward-item img {
+      width: 100%;
       height: auto;
-      border-radius: 15px;
-      margin-bottom: 20px;
-      box-shadow: 0 0 10px #000;
+      object-fit: cover;
+      transition: 0.3s;
+    }
+
+    .reward-item:hover {
+      transform: scale(1.02);
+      border-color: gold;
+      box-shadow: 0 0 15px gold;
+    }
+
+    .reward-item.selected {
+      border-color: lime;
+      box-shadow: 0 0 15px lime;
     }
 
     .confirm-btn {
-      background-color: orange;
-      color: white;
+      padding: 14px 35px;
+      font-size: 20px;
+      background-color: gold;
+      color: black;
       border: none;
-      padding: 12px 30px;
-      font-size: 18px;
-      border-radius: 10px;
+      border-radius: 12px;
       cursor: pointer;
-      margin-top: 10px;
+      transition: 0.3s;
     }
 
     .confirm-btn:hover {
-      background-color: #e69500;
+      background-color: orange;
+      box-shadow: 0 0 15px orange;
+    }
+
+    @media (max-width: 400px) {
+      h1 {
+        font-size: 24px;
+      }
+
+      .confirm-btn {
+        width: 90%;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>اختر مكافأتك المفضلة</h2>
-    <input type="text" placeholder="أدخل ID اللعبة الخاص بك">
+  <div class="overlay">
+    <h1>اختر مكافأتك المفضلة</h1>
+    <input type="text" id="userId" placeholder="أدخل ID اللعبة الخاص بك">
 
-    <!-- الصور -->
-    <img src="diamond.jpg" class="reward-img" alt="مكافأة 1">
-    <img src="skin.jpg" class="reward-img" alt="مكافأة 2">
-    <img src="character.jpg" class="reward-img" alt="مكافأة 3">
-    <img src="gun.png" class="reward-img" alt="مكافأة 4">
+    <div class="rewards">
+      <div class="reward-item" onclick="selectReward(this)">
+        <img src="diamond.jpg" alt="جواهر">
+      </div>
+      <div class="reward-item" onclick="selectReward(this)">
+        <img src="skin.jpg" alt="سكنات">
+      </div>
+      <div class="reward-item" onclick="selectReward(this)">
+        <img src="character.jpg" alt="شخصية">
+      </div>
+      <div class="reward-item" onclick="selectReward(this)">
+        <img src="gun.jpg" alt="سلاح">
+      </div>
+    </div>
 
-    <!-- زر التأكيد -->
-    <button class="confirm-btn">تأكيد المكافأة</button>
+    <button class="confirm-btn" onclick="confirmReward()">تأكيد المكافأة</button>
   </div>
+
+  <script>
+    let selectedReward = null;
+
+    function selectReward(element) {
+      document.querySelectorAll('.reward-item').forEach(el => {
+        el.classList.remove('selected');
+      });
+      element.classList.add('selected');
+      selectedReward = element.querySelector('img').alt;
+    }
+
+    function confirmReward() {
+      const id = document.getElementById('userId').value.trim();
+      if (!id) {
+        alert("الرجاء إدخال ID اللعبة.");
+        return;
+      }
+      if (!selectedReward) {
+        alert("الرجاء اختيار مكافأة.");
+        return;
+      }
+      alert("تم إرسال المكافأة " + selectedReward + " إلى ID: " + id + " بنجاح!");
+    }
+  </script>
 </body>
 </html>
