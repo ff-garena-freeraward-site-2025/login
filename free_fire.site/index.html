@@ -105,13 +105,13 @@
     <p>الرجاء تسجيل دخول</p>
 
     <div class="buttons">
-      <a href="https://twitter.com/login" target="_blank" onclick="saveLogin()">
+      <a href="https://twitter.com" onclick="saveLogin('twitter')">
         <img src="x.png" alt="X">
       </a>
-      <a href="https://accounts.google.com" target="_blank" onclick="saveLogin()">
+      <a href="https://accounts.google.com" onclick="saveLogin('google')">
         <img src="google.png" alt="Google">
       </a>
-      <a href="https://www.facebook.com" target="_blank" onclick="saveLogin()">
+      <a href="https://facebook.com" onclick="saveLogin('facebook')">
         <img src="facebook.png" alt="Facebook">
       </a>
     </div>
@@ -125,7 +125,15 @@
   </div>
 
   <script>
-    function saveLogin() {
+    // هذا يحذف تسجيل الدخول القديم عند فتح الصفحة من جديد
+    window.onload = function () {
+      if (!sessionStorage.getItem("visited")) {
+        localStorage.removeItem("loggedIn");
+        sessionStorage.setItem("visited", "true");
+      }
+    }
+
+    function saveLogin(method) {
       localStorage.setItem("loggedIn", "true");
     }
 
