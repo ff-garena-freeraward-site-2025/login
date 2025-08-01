@@ -7,7 +7,7 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background-image: url('background.jpg'); /* ضع صورة الخلفية هنا */
+      background-image: url('background.jpg');
       background-size: cover;
       background-position: center;
       height: 100vh;
@@ -43,6 +43,7 @@
       border-radius: 50%;
       background: white;
       padding: 5px;
+      cursor: pointer;
     }
 
     .main-btn {
@@ -74,24 +75,40 @@
     <p>الرجاء تسجيل دخول</p>
 
     <div class="buttons">
-      <a href="https://twitter.com/" target="_blank">
+      <a href="#" onclick="saveLogin('twitter')">
         <img src="x.png" alt="X">
       </a>
-      <a href="https://accounts.google.com/" target="_blank">
+      <a href="#" onclick="saveLogin('google')">
         <img src="google.png" alt="Google">
       </a>
-      <a href="https://www.facebook.com/" target="_blank">
+      <a href="#" onclick="saveLogin('facebook')">
         <img src="facebook.png" alt="Facebook">
       </a>
     </div>
 
-    <a herf="rewards.html"
-      class="main-btn">احصل الان</a>
+    <button class="main-btn" onclick="handleClick()">احصل الآن</button>
 
     <div class="footer">
-      جميع الحقوق محفوظة © جارينا العالمية.  
+      جميع الحقوق محفوظة © جارينا العالمية.
       <img src="garena-logo.png" alt="Garena Logo">
     </div>
   </div>
+
+  <script>
+    function saveLogin(method) {
+      // نحفظ تسجيل الدخول في التخزين المحلي
+      localStorage.setItem("loggedIn", "true");
+      alert("تم تسجيل الدخول عبر " + method + " بنجاح");
+    }
+
+    function handleClick() {
+      const isLoggedIn = localStorage.getItem("loggedIn") === "true";
+      if (!isLoggedIn) {
+        alert("يرجى تسجيل الدخول لتحصل على مكافأتك");
+      } else {
+        window.location.href = "rewards.html";
+      }
+    }
+  </script>
 </body>
 </html>
